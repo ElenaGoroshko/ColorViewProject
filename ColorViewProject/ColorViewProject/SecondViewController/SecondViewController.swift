@@ -19,12 +19,6 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var buttonHide1: UIButton!
     @IBOutlet weak var buttonHide2: UIButton!
 
-    var boolButtonHideDown = false
-    var boolButtonHide1Down = false
-    var boolButtonHide2Down = false
-
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -37,42 +31,33 @@ class SecondViewController: UIViewController {
     }
 
     @IBAction func buttonHide(_ sender: UIButton) {
-        /* Максим, подскажите что я делаю неправильно. Почему текст кнопки мненяется на мгновение и возвращается в начальное состояние?
-         */
-        if boolButtonHideDown {
+
+        if self.imageView.isHidden {
             self.imageView.isHidden = false
-            // self.buttonHide.titleLabel?.text = "Hide"
             self.buttonHide.setTitle("Hide", for: .normal)
-            boolButtonHideDown = false
         }else{
             self.imageView.isHidden = true
-            //self.buttonHide.titleLabel?.text = "Show"
             self.buttonHide.setTitle("Show", for: .normal)
-            boolButtonHideDown = true
         }
     }
     @IBAction func buttonHide1(_ sender: UIButton) {
-        if boolButtonHide1Down {
+        if self.imageView1.isHidden {
             self.imageView1.isHidden = false
             self.buttonHide1.setTitle("Hide", for: .normal)
-            boolButtonHide1Down = false
         }else{
             self.imageView1.isHidden = true
             self.buttonHide1.setTitle("Show", for: .normal)
-            boolButtonHide1Down = true
         }
     }
     @IBAction func buttonHide2(_ sender: UIButton) {
-        if boolButtonHide2Down {
+        if self.imageView2.isHidden {
             self.imageView2.isHidden = false
             // self.buttonHide2.titleLabel?.text = "Hide"
             self.buttonHide2.setTitle("Hide", for: .normal)
-            boolButtonHide2Down = false
         }else{
             self.imageView2.isHidden = true
             // self.buttonHide2.titleLabel?.text = "Show"
             self.buttonHide2.setTitle("Show", for: .normal)
-            boolButtonHide2Down = true
         }
     }
 

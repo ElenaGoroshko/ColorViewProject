@@ -10,9 +10,13 @@ import UIKit
 
 class ThirdViewController: UIViewController {
 
-    var colorRed:CGFloat = 0.0
-    var colorGreen:CGFloat = 0.0
-    var colorBlue:CGFloat = 0.0
+    let minColorValue:Float = 0
+    let maxColorValue:Float = 255
+    var mediumColorValue:Float  { get {return (minColorValue+(maxColorValue - minColorValue)/2)} }
+
+    var colorValueRed:CGFloat = 0.0
+    var colorValueGreen:CGFloat = 0.0
+    var colorValueBlue:CGFloat = 0.0
 
     @IBOutlet weak var labelRed: UILabel!
     @IBOutlet weak var labelGreen: UILabel!
@@ -26,65 +30,89 @@ class ThirdViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.hSliderRed.minimumValue = minColorValue
+        self.hSliderGreen.minimumValue = minColorValue
+        self.hSliderBlue.minimumValue = minColorValue
+
+        self.hSliderRed.maximumValue = maxColorValue
+        self.hSliderGreen.maximumValue = maxColorValue
+        self.hSliderBlue.maximumValue = maxColorValue
+
+        self.labelRed.text = String(Int(minColorValue))
+        self.labelGreen.text = String(Int(minColorValue))
+        self.labelBlue.text = String(Int(minColorValue))
+
+        colorValueRed = CGFloat((minColorValue+minColorValue)/maxColorValue)
+        colorValueGreen = CGFloat((minColorValue+minColorValue)/maxColorValue)
+        colorValueBlue = CGFloat((minColorValue+minColorValue)/maxColorValue)
+
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
     }
 
     @IBAction func buttonMedium(_ sender: Any) {
-        self.hSliderRed.setValue(127, animated: true)
-        self.hSliderGreen.setValue(127, animated: true)
-        self.hSliderBlue.setValue(127, animated: true)
-        self.labelRed.text = "127"
-        self.labelGreen.text = "127"
-        self.labelBlue.text = "127"
-        colorRed = 127/255
-        colorGreen = 127/255
-        colorBlue = 127/255
-        self.viewColor.backgroundColor = UIColor(red:colorRed, green:colorGreen, blue:colorBlue, alpha:1)
+        self.hSliderRed.setValue(Float(mediumColorValue), animated: true)
+        self.hSliderGreen.setValue(Float(mediumColorValue), animated: true)
+        self.hSliderBlue.setValue(Float(mediumColorValue), animated: true)
+
+        self.labelRed.text = String(Int(mediumColorValue))
+        self.labelGreen.text = String(Int(mediumColorValue))
+        self.labelBlue.text = String(Int(mediumColorValue))
+
+        colorValueRed = CGFloat((minColorValue+mediumColorValue)/maxColorValue)
+        colorValueGreen = CGFloat((minColorValue+mediumColorValue)/maxColorValue)
+        colorValueBlue = CGFloat((minColorValue+mediumColorValue)/maxColorValue)
+
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
     }
 
     @IBAction func buttonMin(_ sender: Any) {
-        self.hSliderRed.setValue(0, animated: true)
-        self.hSliderGreen.setValue(0, animated: true)
-        self.hSliderBlue.setValue(0, animated: true)
-        self.labelRed.text = "0"
-        self.labelGreen.text = "0"
-        self.labelBlue.text = "0"
-        colorRed = 0
-        colorGreen = 0
-        colorBlue = 0
-        self.viewColor.backgroundColor = UIColor(red:colorRed, green:colorGreen, blue:colorBlue, alpha:1)
+        self.hSliderRed.setValue(Float(minColorValue), animated: true)
+        self.hSliderGreen.setValue(Float(minColorValue), animated: true)
+        self.hSliderBlue.setValue(Float(minColorValue), animated: true)
+        self.labelRed.text = String(Int(minColorValue))
+        self.labelGreen.text = String(Int(minColorValue))
+        self.labelBlue.text = String(Int(minColorValue))
+
+        colorValueRed = CGFloat((minColorValue+minColorValue)/maxColorValue)
+        colorValueGreen = CGFloat((minColorValue+minColorValue)/maxColorValue)
+        colorValueBlue = CGFloat((minColorValue+minColorValue)/maxColorValue)
+
+
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
     }
 
     @IBAction func buttonMax(_ sender: Any) {
-        self.hSliderRed.setValue(255, animated: true)
-        self.hSliderGreen.setValue(255, animated: true)
-        self.hSliderBlue.setValue(255, animated: true)
-        self.labelRed.text = "255"
-        self.labelGreen.text = "255"
-        self.labelBlue.text = "255"
-        colorRed = 1
-        colorGreen = 1
-        colorBlue = 1
-        self.viewColor.backgroundColor = UIColor(red:colorRed, green:colorGreen, blue:colorBlue, alpha:1)
+        self.hSliderRed.setValue(Float(maxColorValue), animated: true)
+        self.hSliderGreen.setValue(Float(maxColorValue), animated: true)
+        self.hSliderBlue.setValue(Float(maxColorValue), animated: true)
+        self.labelRed.text = String(Int(maxColorValue))
+        self.labelGreen.text = String(Int(maxColorValue))
+        self.labelBlue.text = String(Int(maxColorValue))
+        colorValueRed = CGFloat((minColorValue+maxColorValue)/maxColorValue)
+        colorValueGreen = CGFloat((minColorValue+maxColorValue)/maxColorValue)
+        colorValueBlue = CGFloat((minColorValue+maxColorValue)/maxColorValue)
+
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
     }
 
     @IBAction func hSliderRed(_ sender: Any) {
         self.labelRed.text = String(Int(self.hSliderRed.value))
-        colorRed = CGFloat(self.hSliderRed.value / 255)
-        self.viewColor.backgroundColor = UIColor(red:colorRed, green:colorGreen, blue:colorBlue, alpha:1)
+        colorValueRed = CGFloat((self.hSliderRed.value + minColorValue) / maxColorValue)
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
 
     }
 
     @IBAction func hSliderGreen(_ sender: Any) {
         self.labelGreen.text = String(Int(self.hSliderGreen.value))
-        colorGreen = CGFloat(self.hSliderGreen.value / 255)
-        self.viewColor.backgroundColor = UIColor(red:colorRed, green:colorGreen, blue:colorBlue, alpha:1)
+        colorValueGreen = CGFloat((self.hSliderGreen.value + minColorValue) / maxColorValue)
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
     }
 
     @IBAction func hSliderBlue(_ sender: Any) {
         self.labelBlue.text = String(Int(self.hSliderBlue.value))
-        colorBlue = CGFloat(self.hSliderBlue.value / 255)
-        self.viewColor.backgroundColor = UIColor(red:colorRed, green:colorGreen, blue:colorBlue, alpha:1)
+        colorValueBlue = CGFloat((self.hSliderBlue.value + minColorValue) / maxColorValue)
+        self.viewColor.backgroundColor = UIColor(red:colorValueRed, green:colorValueGreen, blue:colorValueBlue, alpha:1)
     }
 
 }
